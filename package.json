@@ -1,0 +1,34 @@
+{
+  "name": "zipto",
+  "version": "1.0.0",
+  "description": "一个快捷的目录压缩工具",
+  "main": "index.js",
+  "bin": {
+    "zipto": "cli.js"
+  },
+  "scripts": {
+    "test": "node index.js"
+  },
+  "keywords": [
+    "zip",
+    "archiver",
+    "fs-extra",
+    "fs",
+    "compress",
+    "directory"
+  ],
+  "author": "fattypanda <1076659852@qq.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/fattypanda/zipto",
+  "repository": {
+    "url": "https://github.com/fattypanda/zipto",
+    "type": "git"
+  },
+  "bugs": "https://github.com/fattypanda/zipto/issues",
+  "dependencies": {
+    "archiver": "^5.3.1",
+    "commander": "^11.0.0",
+    "dayjs": "^1.11.9",
+    "fs-extra": "^11.1.1"
+  }
+}
