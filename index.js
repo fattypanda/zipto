@@ -11,10 +11,10 @@ const dayjs = require("dayjs");
  */
 const zipto = function (options) {
 
-  console.log(options);
+  const root = path.resolve('.');
 
-  const dir = path.resolve(__dirname, options.dir);
-  const out = path.resolve(__dirname, options.out);
+  const dir = path.resolve(root, options.dir);
+  const out = path.resolve(root, options.out);
   const name = options.name;
   const date = options.date? dayjs().format(options.date): '';
   const debug = !!options.debug;
