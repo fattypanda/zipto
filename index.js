@@ -11,9 +11,13 @@ const archiver = require("archiver");
 const zipto = function (options) {
 
   /**
-   * @type {ZipToDefineConfig}
+   * @type {Partial<ZipToDefineConfig>}
    */
-  const _config = require(path.resolve('.', './.zipto.js'));
+  let _config = {};
+  try {
+    _config = require(path.resolve('.', './.zipto.js'));
+  } catch (e) {}
+
   /**
    * @type {ZipToDefineConfig}
    */
@@ -58,7 +62,7 @@ module.exports = zipto;
 
 /**
  *
- * @param {ZipToDefineConfig} options
+ * @param {Partial<ZipToDefineConfig>} options
  */
 const defineConfig = (options) => options;
 

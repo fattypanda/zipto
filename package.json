@@ -1,6 +1,6 @@
 {
   "name": "zipto",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "一个快捷的目录压缩工具",
   "main": "index.js",
   "bin": {
