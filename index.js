@@ -2,24 +2,32 @@ const fs = require("node:fs");
 const path = require("node:path");
 const fse = require("fs-extra");
 const archiver = require("archiver");
-const dayjs = require("dayjs");
 
 /**
  * zipto
- * @param {{dir: string; out: string; name: string; date?: string | false; debug?: boolean;}} options
+ * @param {ZipToOptions} options
  * @return {Promise<string>}
  */
 const zipto = function (options) {
+
+  /**
+   * @type {ZipToDefineConfig}
+   */
+  const _config = require(path.resolve('.', './.zipto.js'));
+  /**
+   * @type {ZipToDefineConfig}
+   */
+  const _defaultConfig = require('./.zipto.js');
+
+  const config = {..._defaultConfig, ..._config};
 
   const root = path.resolve('.');
 
   const dir = path.resolve(root, options.dir);
   const out = path.resolve(root, options.out);
-  const name = options.name;
-  const date = options.date? dayjs().format(options.date): '';
   const debug = !!options.debug;
 
-  const zip = path.resolve(out, [name, date].filter(v => v).join('-') + '.zip');
+  const zip = path.resolve(out, config.name(options, config) + '.zip');
   const output = fs.createWriteStream(zip);
 
   fse.ensureDir(out);
@@ -34,14 +42,7 @@ const zipto = function (options) {
     });
 
     output.on("close", function () {
-      if (debug) {
-        console.log(`
---------- ---------压缩完毕--------- ---------
-压缩目录：${dir}
-压缩结果：${zip}
-生成文件大小 ${(archive.pointer() / 1024 / 1024).toFixed(2)} MB
-`);
-      }
+      if (debug) config.output(options, {zip, archive}, config);
       resolve(zip);
     });
 
@@ -53,4 +54,12 @@ const zipto = function (options) {
   });
 }
 
-exports = module.exports = zipto;
+module.exports = zipto;
+
+/**
+ *
+ * @param {ZipToDefineConfig} options
+ */
+const defineConfig = (options) => options;
+
+module.exports.defineConfig = defineConfig;
