@@ -5,13 +5,13 @@ const archiver = require("archiver");
 
 /**
  * zipto
- * @param {ZipToOptions} options
+ * @param {import("./zipto").ZipToOptions} options
  * @return {Promise<string>}
  */
 const zipto = function (options) {
 
   /**
-   * @type {Partial<ZipToDefineConfig>}
+   * @type {Partial<import("./zipto").ZipToDefineConfig>}
    */
   let _config = {};
   try {
@@ -19,7 +19,7 @@ const zipto = function (options) {
   } catch (e) {}
 
   /**
-   * @type {ZipToDefineConfig}
+   * @type {import("./zipto").ZipToDefineConfig}
    */
   const _defaultConfig = require('./.zipto.js');
 
@@ -62,7 +62,7 @@ module.exports = zipto;
 
 /**
  *
- * @param {Partial<ZipToDefineConfig>} options
+ * @param {Partial<import("./zipto").ZipToDefineConfig>} options
  */
 const defineConfig = (options) => options;
 
