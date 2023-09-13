@@ -4,13 +4,12 @@ const path = require("node:path");
 
 module.exports = defineConfig({
   dateformat: 'YYYY-MM-DD_HH_mm_ss',
+  join: '-',
   name(options, config) {
-    const {name, date} = options;
-
-    const _name = name;
-    const _date = date? dayjs().format(date): dayjs().format(config.dateformat);
-
-    return [_name, _date].filter(v => v).join('-');
+    return options.name? options.name: options.dir;
+  },
+  date (options, config) {
+    return dayjs().format(config.dateformat);
   },
   output (options, other, config) {
     const {dir} = options;

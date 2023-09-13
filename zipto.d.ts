@@ -8,8 +8,14 @@ declare interface ZipToOptions {
   debug: boolean;
 }
 
+declare type NameFunc = (options: ZipToOptions, config: ZipToDefineConfig) => string;
+declare type DateFunc = (options: ZipToOptions, config: ZipToDefineConfig) => string;
+declare type OutputFunc = (options: ZipToOptions, other: {zip: string; archive: Archiver;}, config: ZipToDefineConfig) => void;
+
 declare interface ZipToDefineConfig {
   dateformat: string;
-  name (options: ZipToOptions, config: ZipToDefineConfig): string;
-  output (options: ZipToOptions, other: {zip: string; archive: Archiver;}, config: ZipToDefineConfig): void;
+  join: string;
+  name: NameFunc;
+  date?: DateFunc | false;
+  output: OutputFunc;
 }

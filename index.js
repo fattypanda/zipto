@@ -23,6 +23,9 @@ const zipto = function (options) {
    */
   const _defaultConfig = require('./.zipto.js');
 
+  /**
+   * @type {import("./zipto").ZipToDefineConfig}
+   */
   const config = {..._defaultConfig, ..._config};
 
   const root = path.resolve('.');
@@ -31,7 +34,14 @@ const zipto = function (options) {
   const out = path.resolve(root, options.out);
   const debug = !!options.debug;
 
-  const zip = path.resolve(out, config.name(options, config) + '.zip');
+  const names = [config.name(options, config)];
+
+  if (options.date) {
+    if (typeof options.date === "string") config.dateformat = options.date;
+    if (config.date) names.push(config.date(options, config));
+  }
+
+  const zip = path.resolve(out, names.join(config.join) + '.zip');
   const output = fs.createWriteStream(zip);
 
   fse.ensureDir(out);
