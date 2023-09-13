@@ -34,12 +34,10 @@ const zipto = function (options) {
   const out = path.resolve(root, options.out);
   const debug = !!options.debug;
 
-  const names = [config.name(options, config)];
+  if (typeof options.date === "string") config.dateformat = options.date;
 
-  if (options.date) {
-    if (typeof options.date === "string") config.dateformat = options.date;
-    if (config.date) names.push(config.date(options, config));
-  }
+  const names = [config.name(options, config)];
+  if (options.date && config.date) names.push(config.date(options, config));
 
   const zip = path.resolve(out, names.join(config.join) + '.zip');
   const output = fs.createWriteStream(zip);

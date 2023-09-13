@@ -87,7 +87,14 @@ module.exports = defineConfig({
 ```
 
 ## Update
-#### 1.3
+
+#### 1.3.2
+- 移除 `npm` 仓库的打包测试文件；
+- 
+#### 1.3.1
+- 修复 `.zipto.js` 中的 `date` 配置默认不生效的BUG；
+
+#### 1.3.0
 - 取消 name 的必填要求（默认与 dir 同值）
 - 添加 `--no-date` 可禁用时间处理函数
 - `.zipto.js` 可分别定制 `name` 和 `date` 函数
