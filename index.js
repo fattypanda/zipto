@@ -8,8 +8,7 @@ const archiver = require("archiver");
  * @param {import("./zipto").ZipToOptions} options
  * @return {Promise<string>}
  */
-const zipto = function (options) {
-
+const zipto = async function (options) {
   /**
    * @type {Partial<import("./zipto").ZipToDefineConfig>}
    */
@@ -33,13 +32,18 @@ const zipto = function (options) {
   const dir = path.resolve(root, options.dir);
   const out = path.resolve(root, options.out);
   const debug = !!options.debug;
+	
+	if (options.gitInfo && config.gitInfo) {
+		await config.gitInfo(options, config);
+	}
 
   if (typeof options.date === "string") config.dateformat = options.date;
 
   const names = [config.name(options, config)];
   if (options.date && config.date) names.push(config.date(options, config));
-
+	
   const zip = path.resolve(out, names.join(config.join) + '.zip');
+	
   const output = fs.createWriteStream(zip);
 
   fse.ensureDir(out);
